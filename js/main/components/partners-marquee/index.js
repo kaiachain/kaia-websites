@@ -1,44 +1,58 @@
 let partnerMarqueeStarted = false;
 let partnerMarqueeScrollTrigger;
+let resized;
 
 function resetMarquee() {
-  const item = gsap.utils.toArray(".partner-showcase-item");
-  if (partnerMarqueeScrollTrigger) {
-    partnerMarqueeScrollTrigger.kill();
-  }
+    const item = gsap.utils.toArray(".partner-showcase-item");
 
-  gsap.killTweensOf(".partner-showcase-item");
-  gsap.set(".partner-showcase-item", { clearProps: "all" }); // Reset the items' properties
+    if (partnerMarqueeScrollTrigger) {
+        partnerMarqueeScrollTrigger.kill();
+    }
 
-  partnerMarqueeStarted = false;
-  PartnerMarquee();
+    gsap.killTweensOf(".partner-showcase-item");
+    gsap.set(".partner-showcase-item", { clearProps: "all" });
+
+    resized = true;
+    partnerMarqueeStarted = false;
+    PartnerMarquee();
 }
-
 function PartnerMarquee() {
-  if (partnerMarqueeStarted) return;
+    if (partnerMarqueeStarted) return;
+    partnerMarqueeStarted = true;
 
-  const firstItems = gsap.utils.toArray(".partner-showcase-item.first");
-  const secondItems = gsap.utils.toArray(".partner-showcase-item.second");
+    const firstItems = gsap.utils.toArray(".partner-showcase-item.first");
+    const secondItems = gsap.utils.toArray(".partner-showcase-item.second");
 
-  horizontalLoop(secondItems, { speed: 0.5 });
-  horizontalLoop(firstItems, { reversed: true, speed: 0.5 });
-  partnerMarqueeStarted = true;
+    function startAnimation() {
+        horizontalLoop(secondItems, { speed: 0.5 });
+        horizontalLoop(firstItems, { reversed: true, speed: 0.5 });
+    }
+
+    if (resized) {
+        startAnimation();
+        resized = false;
+    } else {
+        setTimeout(startAnimation, 2500);
+    }
 }
 
 let partnersPreviousWidth = $(window).width();
 
 $(window).on("resize", () => {
-  clearTimeout(window.resizeTimeout);
-
-  let currentWidth = $(window).width();
-  if (currentWidth !== partnersPreviousWidth) {
-    window.resizeTimeout = setTimeout(resetMarquee, 200);
-    partnersPreviousWidth = currentWidth;
-  }
+    let partnersCurrentWidth = $(window).width();
+    if (partnersCurrentWidth !== partnersPreviousWidth) {
+        resetMarquee();
+        partnersPreviousWidth = partnersCurrentWidth;
+    }
 });
 
 $(document).ready(() => {
-  partnersPreviousWidth = $(window).width();
-  clearTimeout(window.resizeTimeout);
-  window.resizeTimeout = setTimeout(PartnerMarquee, 200);
+    PartnerMarquee();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const images = document.querySelectorAll(".partner-showcase-icons");
+    images.forEach((img) => {
+        img.setAttribute("loading", "eager");
+    });
 });
