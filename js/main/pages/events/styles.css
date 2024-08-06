@@ -1,0 +1,68 @@
+.share-button .icon,
+.copy-button .icon {
+  color: inherit;
+}
+/* Events */
+
+.event-filter-collection-list {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  -webkit-touch-callout: none; /* iOS Safari */
+}
+
+.w-nav-overlay ::-webkit-scrollbar,
+.w-nav-overlay ::-webkit-scrollbar {
+  display: none;
+}
+
+.event-filter-button.w-radio-input:checked + span {
+  background-color: var(--dark-green--500);
+}
+
+input[type="radio"] {
+  /* display: none; */
+}
+
+/*  Swiper */
+
+.swiper-pagination-bullet {
+  background: var(--greyscale--fg--subtlest, white);
+  opacity: 1;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: var(--brand--fg--neutral);
+}
+
+.swiper-pagination {
+  position: static;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: var(--brand--400) !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: var(--greyscale--fg--strongest) !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  content: "";
+}
+
+.swiper-button-prev {
+  position: absolute;
+  right: 3.5rem;
+}
+.swiper-button-next {
+  position: absolute;
+  right: 0;
+}
+.p2.video-link-out {
+  text-decoration-thickness: 0.3px;
+  text-underline-offset: 1.5px;
+}

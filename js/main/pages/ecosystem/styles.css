@@ -1,0 +1,46 @@
+.ecosystem-partners-card-body-copy {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ecosystem-partners-filter-list-item {
+  z-index: 2;
+}
+
+.ecosystem-partner-card {
+  height: 100%;
+}
+
+.ecosystem-partner-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.radio-button-label {
+  text-wrap: nowrap;
+}
+
+.ecosystem-partners-list {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media screen and (max-width: 479px) {
+  .ecosystem-partners-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+}
+@media screen and (max-width: 767px) and (min-width: 480px) {
+  .ecosystem-partners-list {
+    grid-template-columns: repeat(2, minmax(0, 2fr)) !important;
+  }
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .ecosystem-partners-list {
+    grid-template-columns: repeat(3, minmax(0, 2fr)) !important;
+  }
+}

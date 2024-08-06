@@ -1,0 +1,12 @@
+{
+  "name": "kaia-files",
+  "version": "1.0.0",
+  "description": "contains all kaia files for cdn",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "live-server": "^1.2.2"
+  }
+}

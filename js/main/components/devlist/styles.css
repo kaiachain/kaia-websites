@@ -1,0 +1,45 @@
+.developer-filter-collection-list {
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */
+	-webkit-touch-callout: none; /* iOS Safari */
+}
+
+.w-nav-overlay ::-webkit-scrollbar,
+.w-nav-overlay ::-webkit-scrollbar {
+	display: none;
+}
+
+.developer-filter-button.w-radio-input:checked + span {
+	background-color: var(--dark-green--500);
+}
+
+.developer-item-content p {
+	margin-top: var(--spacing--3);
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+.list-pagination-buttons.page-dots:empty {
+	display: none;
+}
+
+.w-container:before,
+.w-container:after {
+	content: none;
+}
+
+#developer-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing--3);
+}
+
+.developer-radio-filter-wrapper {
+	position: relative;
+}
+
+.developer-tools-content-wrapper div {
+	display: none;
+}
