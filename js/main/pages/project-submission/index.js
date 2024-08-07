@@ -29,7 +29,7 @@ function wordCount() {
 }
 
 
-function validateRequiredFieldTextBox(id) {
+function validateRequiredFieldTextBox(id, multiple) {
   const formControl = document.getElementById(id)
   let input = formControl.querySelector('input')
   if (!input) {
@@ -43,12 +43,23 @@ function validateRequiredFieldTextBox(id) {
     $(formControl).removeClass('has-error')
     return true;
   }
-  gsap.timeline()
+  const timeline = gsap.timeline()
     .to(errorDiv, {
       display: 'flex'
-    }).to(errorDiv.children, {
+    })
+
+  if (multiple) {
+    timeline.to(errorDiv.children[1], {
       display: 'flex'
     }, '<')
+      .to(errorDiv.children[0], {
+        display: "none"
+      }, "<")
+  } else {
+    timeline.to(errorDiv.children, {
+      display: 'flex'
+    }, '<')
+  }
   $(formControl).addClass('has-error')
   return false
 }
@@ -57,7 +68,7 @@ function validateValidUrl(formControl) {
   let input = formControl.querySelector('input')
   let isValid = true;
   const errorDiv = formControl.querySelector('.error-container')
-  const [_, required] = gsap.utils.toArray(errorDiv.children)
+  const [websiteUrl, required] = gsap.utils.toArray(errorDiv.children)
 
   try {
     new URL(input.value)
@@ -79,6 +90,9 @@ function validateValidUrl(formControl) {
     })
     .to(required, {
       display: 'none'
+    })
+    .to(websiteUrl, {
+      display: "flex"
     })
   $(formControl).addClass('has-error')
 }
@@ -127,7 +141,7 @@ function validateProjectContractAddress() {
 }
 
 function validateProjectWebsite() {
-  const requireCheck = validateRequiredFieldTextBox('project-website')
+  const requireCheck = validateRequiredFieldTextBox('project-website', true)
   if (!requireCheck) return requireCheck
   const formControl = document.getElementById('project-website')
   return validateValidUrl(formControl)
@@ -135,14 +149,14 @@ function validateProjectWebsite() {
 
 function validateProjectTelegramId() {
   const formControl = document.getElementById('telegram-id')
-  const requireCheck = validateRequiredFieldTextBox('telegram-id')
+  const requireCheck = validateRequiredFieldTextBox('telegram-id', true)
   if (!requireCheck) return requireCheck
   return validateValidUrl(formControl)
 }
 
 function validateProjectLogo() {
   const formControl = document.getElementById('project-logo')
-  const requireCheck = validateFileRequired(formControl)
+  const requireCheck = validateFileRequired(formControl, true)
   if (!requireCheck) return requireCheck
   return validateImageDimension(formControl, 1000, 1000)
 }
@@ -185,7 +199,7 @@ async function validateImageDimension(formControl, expectedWidth, expectedHeight
   const _URL = window.URL || window.webkitURL
   const fileUploadInput = formControl.querySelector('.w-file-upload-input')
   const errorDiv = formControl.querySelector('.error-container')
-  const [_, required] = gsap.utils.toArray(errorDiv.children)
+  const [imageDimension, required] = gsap.utils.toArray(errorDiv.children)
 
   function onError() {
     gsap.timeline()
@@ -194,7 +208,10 @@ async function validateImageDimension(formControl, expectedWidth, expectedHeight
       })
       .to(required, {
         display: 'none'
-      })
+      }, "<")
+      .to(imageDimension, {
+        display: "flex"
+      }, "<")
     $(formControl).addClass('has-error')
   }
 
@@ -231,9 +248,14 @@ function validateFileRequired(formControl) {
   gsap.timeline()
     .to(errorDiv, {
       display: 'flex'
-    }).to(errorDiv.children, {
+    })
+    .to(errorDiv.children[1], {
       display: 'flex'
     }, '<')
+    .to(errorDiv.children[0], {
+      display: 'none'
+    }, "<")
+
   $(formControl).addClass('has-error')
   return false
 }

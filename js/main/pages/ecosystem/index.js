@@ -273,6 +273,7 @@ $(document).ready(() => {
   var windowWidth = $(window).width();
   Ecosystem()
   setTimeout(setEcosystemDefaultSort, 100)
+
   $(window).resize(function() {
     if ($(window).width() != windowWidth) {
       windowWidth = $(window).width();
