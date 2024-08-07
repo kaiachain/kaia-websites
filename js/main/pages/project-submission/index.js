@@ -1,3 +1,4 @@
+window.originalDrodownText;
 //! -------------------------------------- Word Count -------------------------------------- //
 function wordCount() {
   document
@@ -325,9 +326,9 @@ function addSocialsDropdownEventListener() {
   let currentSocialIndex = 0
   let visibleFields = 0;
 
-  const addButton = document.getElementById('add-option')
   const dropdown = document.getElementById('community-dropdown')
   const [dropdownItemsContainer, label, icon] = gsap.utils.toArray(dropdown.children)
+  window.originalDrodownText = label.innerText
   const [dropdownItemList] = gsap.utils.toArray(dropdownItemsContainer.children)
   const inputs = gsap.utils.toArray(document.querySelector('.socials-input-div').children)
   const dropdownItems = gsap.utils.toArray(dropdownItemList.children)
@@ -357,7 +358,6 @@ function addSocialsDropdownEventListener() {
 
   const onAddButtonClick = () => {
     if (currentSocialIndex !== undefined) {
-      label.innerText = 'community'
       dropdownItems[currentSocialIndex].style.display = 'none'
       visibleFields += 1
       gsap.to(inputs[currentSocialIndex], {
@@ -370,10 +370,11 @@ function addSocialsDropdownEventListener() {
 
   const onDropdownItemClick = (event, index, text) => {
     event?.stopPropagation()
-    label.innerText = text
+    label.innerText = window.originalDrodownText
     timeline.reverse();
     currentSocialIndex = index
     dropdownOpen = false
+    onAddButtonClick()
   }
 
   const onDeleteButtonClick = (event, index) => {
@@ -400,11 +401,9 @@ function addSocialsDropdownEventListener() {
     })
   })
   dropdown.addEventListener('click', onDropdownClick)
-  addButton.addEventListener('click', onAddButtonClick)
   document.addEventListener('click', () => {
     timeline.reverse();
   })
-  onAddButtonClick()
 }
 
 function ProjectSubmission() {
