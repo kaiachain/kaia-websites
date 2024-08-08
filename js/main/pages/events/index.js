@@ -3,38 +3,37 @@ let isEventMobile = false;
 let isEventDesktop = false;
 window.lightBoxIndex;
 
+function FeaturedVideosCarouselCards() {
+  setTimeout(() => {
+    new Swiper(".event-featured-videos-swiper", {
+      spaceBetween: 24,
+      slidesPerView: 1,
+      breakpoints: {
+        478: {
+          slidesPerView: 1,
+        },
+        767: {
+          slidesPerView: 2,
+        },
+        991: {
+          slidesPerView: 3,
+        },
+      },
+      loop: true,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      updateOnWindowResize: true,
+    });
+  }, 200);
+}
+
 const eventBodyAnimation = () => {
   $("#all-filter").detach().prependTo(".events-filter-collection-list");
 };
 
-function closeOverlay() {
-  const videos = gsap.utils.toArray(".video-wrapper")
-  const videoContainer = videos[window.lightBoxIndex]
-  videoContainer.style.opacity = "0"
-  videoContainer.style.zIndex = "-1"
-}
 
-function attachWatchButtonClickListener() {
-  const videosSlide = gsap.utils.toArray('.featured-videos-collection-item')
-  const videos = gsap.utils.toArray(".video-wrapper")
-  videosSlide.forEach((videoSlideDiv, idx) => {
-    const buttonContainer = videoSlideDiv.querySelector(".play-button-container")
-    const videoContainer = videos[idx]
-
-    const closeButton = videoContainer.querySelector(".close-button-container")
-
-    closeButton.addEventListener("click", () => {
-      closeOverlay(videoContainer)
-    })
-
-    buttonContainer.addEventListener("click", () => {
-      window.lightBoxIndex = idx
-      videoContainer.style.opacity = "100"
-      videoContainer.style.zIndex = "100"
-    })
-
-  })
-}
 
 function AnimateDropdown() {
   let dropdownOpen = false;
@@ -101,15 +100,11 @@ function AttachEventEventsOnDOMLifecycle() {
 
   eventBodyAnimation();
   AnimateDropdown();
-  featuredVideos();
   updateArticlesTimezone();
   listHoverEvents();
   copyLink();
   shareLinks();
-  videoLinks();
   formatCardDateTime();
-  textEmphasis();
-  attachWatchButtonClickListener()
 
   setTimeout(() => {
     const pageButtons = gsap.utils.toArray(".list-pagination-page-button");
@@ -213,22 +208,6 @@ function switchTab(tabTypeSelected) {
   }
 }
 
-function featuredVideos() {
-  setTimeout(() => {
-    new Swiper(".featured-videos-swiper", {
-      spaceBetween: 30,
-      loop: true,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
-  }, 200);
-}
 
 function shareLinks() {
   const shareLinks = gsap.utils.toArray(".share-button");
@@ -425,25 +404,6 @@ function listHoverEvents() {
 }
 
 
-function videoLinks() {
-  const videoLinkOut = gsap.utils.toArray(".video-link-out");
-
-  videoLinkOut.forEach((link) => {
-    const videoPlatform = link.innerText;
-    const videoSrc = link.getAttribute("video-src");
-
-    if (videoPlatform === "Youtube") {
-      link.innerText = "Watch on Youtube";
-      link.href = `https://www.youtube.com/watch?v=${videoSrc}`;
-      link.target = "_blank";
-    } else if (videoPlatform === "X") {
-      link.innerText = "Watch on X";
-      link.href = videoSrc;
-      link.target = "_blank";
-    }
-  });
-}
-
 function formatCardDateTime() {
   function formatDate(dateString) {
     const months = [
@@ -490,26 +450,11 @@ function formatCardDateTime() {
   });
 }
 
-function textEmphasis() {
-  const richText = gsap.utils.toArray(".w-richtext");
-  richText.forEach((text) => {
-    const textContent = text.innerHTML;
-    const newContent = textContent.replace(
-      /<strong>(.*?)<\/strong>/g,
-      '<span class="emphasis">$1</span>'
-    );
-    text.innerHTML = newContent;
-  });
-}
 
 $(window).on("resize", AttachEventEventsOnDOMLifecycle);
 
-$(document).ready(AttachEventEventsOnDOMLifecycle);
-
-$(document).keyup(function(e) {
-  if (e.key === "Escape") {
-    if (window.lightBoxIndex !== undefined) {
-      closeOverlay()
-    }
-  }
+$(document).ready(() => {
+  AttachEventEventsOnDOMLifecycle()
+  FeaturedVideosCarouselCards()
 });
+
