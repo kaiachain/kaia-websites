@@ -2,6 +2,7 @@ window.ecosystemListVisible = false;
 window.searching = false;
 window.ecosystemLoaded = false;
 window.selectedPartnerCategory = null;
+window.initialLoad = true
 
 function ecosystemGetFormFactor() {
   let response = 'desktop'
@@ -138,6 +139,10 @@ function attachEventsAnimation() {
   const listHeading = cardsSection.querySelector('.ecosystem-partners-list-block-heading')
   const searchBar = cardsSection.querySelector('.search')
   const [_, heading, searchContent] = gsap.utils.toArray(listHeading.children)
+  const queryParams = new URL(document.location.toString()).searchParams;
+
+  const filterTexts = filters.map(filter => filter.innerText)
+  const preselectedPartnerCategory = queryParams.get('partner')
 
   searchBar.addEventListener('keyup', (e) => {
     const textboxVal = e.target.value
@@ -155,7 +160,6 @@ function attachEventsAnimation() {
       }
     }
   })
-
 
   const timeline = gsap.timeline({ paused: true })
     .to(filterDiv, {
@@ -213,6 +217,12 @@ function attachEventsAnimation() {
     window.ecosystemListVisible = true;
     window.selectedPartnerCategory = filterVal
     updateEcosystemExportUrl()
+  }
+
+  if (!!preselectedPartnerCategory &&
+    window.initialLoad &&
+    filterTexts.indexOf(preselectedPartnerCategory) > -1) {
+    showList(preselectedPartnerCategory)
   }
 }
 
@@ -280,4 +290,5 @@ $(document).ready(() => {
       Ecosystem()
     }
   });
+  window.initialLoad = false
 })

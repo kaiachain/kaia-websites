@@ -1,4 +1,17 @@
 
+function updateLinkBackWithCategory() {
+  const partnerCategory = gsap.utils.toArray('.partner-header-eyebrow.capitalize')
+  const link = document.getElementById('ecosystem-link-back')
+
+  const url = new URL(link).toString()
+  const searchParams = new URLSearchParams()
+
+  searchParams.set('partner', partnerCategory[0].getAttribute('raw-val'))
+
+  let newUrl = url.toString() + '?' + searchParams.toString()
+  link.href = newUrl
+}
+
 function PartnerDetails() {
   const copyLinks = gsap.utils.toArray('.copy-link')
   const reportBtn = document.querySelector('.report-button')
@@ -37,6 +50,7 @@ function PartnerDetails() {
     const url = `mailto:${recipient}?subject=Report ${partnerName}`
     reportBtn.href = url
   }
+  updateLinkBackWithCategory()
 }
 
 
