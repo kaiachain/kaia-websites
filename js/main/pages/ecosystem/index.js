@@ -244,39 +244,12 @@ function updateEcosystemExportUrl() {
   return exportButton.setAttribute('href', newUrl)
 }
 
-function ecosystemPageIncrementEvents() {
-  const ecosystemCardsSection = document.getElementById('ecosystem-cards-section')
-  const listHeading = ecosystemCardsSection.querySelector('.ecosystem-partners-list-block-heading')
-  const mobilePageIndicator = ecosystemCardsSection.querySelector(".list-pagination-page-button.mobile");
-  const paginationNavBtns = gsap.utils.toArray(".list-pagination-nav-button");
-
-  paginationNavBtns.map((paginationBtn) => {
-    const onClick = () => {
-      const buttonType = paginationBtn.classList[0];
-      if (buttonType === "w-pagination-previous") {
-        mobilePageIndicator.innerText =
-          parseInt(mobilePageIndicator.innerText) - 1;
-      } else {
-        mobilePageIndicator.innerText =
-          parseInt(mobilePageIndicator.innerText) + 1;
-      }
-      if (ecosystemGetFormFactor() !== 'desktop') {
-        listHeading.scrollIntoView({ behavior: "smooth", block: "center" })
-      }
-    };
-    paginationBtn.addEventListener('click', onClick)
-  });
-
-}
-
-
 function Ecosystem() {
   const formFactor = ecosystemGetFormFactor()
   attachEventsAnimation()
   setTimeout(() => {
     formatEcosystemFilterCircles(formFactor)
   }, 100)
-  ecosystemPageIncrementEvents()
 }
 
 $(document).ready(() => {

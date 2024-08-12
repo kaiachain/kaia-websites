@@ -32,10 +32,24 @@
   .ecosystem-partners-list {
     grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
   }
+  .list-pagination-page-button {
+    display: none;
+  }
+
+  .list-pagination-page-button.w--current {
+    display: flex;
+  }
 }
 @media screen and (max-width: 767px) and (min-width: 480px) {
   .ecosystem-partners-list {
     grid-template-columns: repeat(2, minmax(0, 2fr)) !important;
+  }
+  .list-pagination-page-button {
+    display: none;
+  }
+
+  .list-pagination-page-button.w--current {
+    display: flex;
   }
 }
 

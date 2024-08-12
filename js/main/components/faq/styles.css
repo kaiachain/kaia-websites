@@ -23,3 +23,21 @@ input[type="radio"] {
 .w-container:after {
   content: none;
 }
+@media screen and (max-width: 479px) {
+  .list-pagination-page-button {
+    display: none;
+  }
+
+  .list-pagination-page-button.w--current {
+    display: flex;
+  }
+}
+@media screen and (max-width: 767px) and (min-width: 480px) {
+  .list-pagination-page-button {
+    display: none;
+  }
+
+  .list-pagination-page-button.w--current {
+    display: flex;
+  }
+}

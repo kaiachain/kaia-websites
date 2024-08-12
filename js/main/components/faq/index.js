@@ -155,7 +155,6 @@ function AttachFAQEventsOnDOMLifecycle() {
   setTimeout(() => {
     const pageButtons = gsap.utils.toArray(".list-pagination-page-button");
     const faqFilters = gsap.utils.toArray(".faq-filter-chip-container");
-    const paginationNavBtns = gsap.utils.toArray(".list-pagination-nav-button");
 
     function onButtonClick() {
       if (window.faqOpenedIndex !== undefined) {
@@ -175,20 +174,6 @@ function AttachFAQEventsOnDOMLifecycle() {
         onButtonClick();
         mobilePageIndicator.innerText = 1;
       });
-    });
-
-    paginationNavBtns.map((paginationBtn) => {
-      paginationBtn.onclick = () => {
-        const buttonType = paginationBtn.classList[0];
-        if (buttonType === "w-pagination-previous") {
-          mobilePageIndicator.innerText =
-            parseInt(mobilePageIndicator.innerText) - 1;
-        } else {
-          mobilePageIndicator.innerText =
-            parseInt(mobilePageIndicator.innerText) + 1;
-        }
-        onButtonClick();
-      };
     });
   }, 500);
 }
