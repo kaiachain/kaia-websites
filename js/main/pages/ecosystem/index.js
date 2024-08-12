@@ -133,6 +133,7 @@ function formatEcosystemFilterCircles(formFactor) {
 
 function attachEventsAnimation() {
   const cardsSection = document.getElementById('ecosystem-cards-section')
+  const formBlock = cardsSection.querySelector('.ecosystem-form-block')
   const filters = gsap.utils.toArray('.ecosystem-partners-filter-list-item ');
   const filterDiv = cardsSection.querySelector('.ecosystem-partner-header-content-div')
   const list = cardsSection.querySelector('.ecosystem-partner-content-div')
@@ -183,12 +184,13 @@ function attachEventsAnimation() {
   filters.map(filter => {
     filter.addEventListener('click', () => {
       showList(filter.innerText)
-      listHeading.scrollIntoView({ behavior: "smooth", block: "center" })
+      searchBar.scrollIntoView({ behavior: "smooth", block: "start" })
     })
   })
 
   listHeading.addEventListener('click', () => {
     setTimeout(hideList, 10)
+    searchBar.scrollIntoView({ behavior: "smooth", block: 'start' })
   })
 
   function hideList() {
