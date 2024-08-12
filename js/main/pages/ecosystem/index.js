@@ -192,10 +192,6 @@ function attachEventsAnimation() {
   })
 
   function hideList() {
-    const ecosystemCardsSection = document.getElementById('ecosystem-cards-section')
-    const mobilePageIndicator = ecosystemCardsSection.querySelector(".list-pagination-page-button.mobile");
-    mobilePageIndicator.innerText = '1'
-
     timeline.reverse()
     window.ecosystemListVisible = false;
     window.selectedPartnerCategory = ''

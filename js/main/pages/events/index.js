@@ -88,11 +88,6 @@ function AnimateDropdown() {
 }
 
 function AttachEventEventsOnDOMLifecycle() {
-  const eventSection = document.getElementById("event-section");
-  const mobilePageIndicator = eventSection.querySelector(
-    ".list-pagination-page-button.mobile"
-  );
-
   const tabs = gsap.utils.toArray(".events-timeline-tabs-title");
 
   isEventMobile = document.body.clientWidth <= 767;
@@ -109,7 +104,6 @@ function AttachEventEventsOnDOMLifecycle() {
   setTimeout(() => {
     const pageButtons = gsap.utils.toArray(".list-pagination-page-button");
     const eventFilters = gsap.utils.toArray(".event-filter-chip-container");
-    const paginationNavBtns = gsap.utils.toArray(".list-pagination-nav-button");
 
     tabs.map((tab) => {
       tab.addEventListener("click", () => {
@@ -133,24 +127,9 @@ function AttachEventEventsOnDOMLifecycle() {
     eventFilters.map((filter) => {
       filter.addEventListener("click", () => {
         onButtonClick();
-        mobilePageIndicator.innerText = 1;
       });
     });
 
-    paginationNavBtns.map((paginationBtn) => {
-      paginationBtn.onclick = () => {
-        const buttonType = paginationBtn.classList[0];
-        if (buttonType === "w-pagination-previous") {
-          mobilePageIndicator.innerText =
-            parseInt(mobilePageIndicator.innerText) - 1;
-        } else {
-          mobilePageIndicator.innerText =
-            parseInt(mobilePageIndicator.innerText) + 1;
-        }
-
-        onButtonClick();
-      };
-    });
   }, 500);
 }
 
