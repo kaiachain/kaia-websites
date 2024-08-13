@@ -44,6 +44,7 @@ function PoweredByKaia() {
     html2canvas(targetCanvas, {
       backgroundColor: 'black',
       useCORS: true,
+      scale: 3.5
     }).then(canvas => {
       canvas.style.display = 'none'
       canvas.style.padding = '10px'
