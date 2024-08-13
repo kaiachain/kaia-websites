@@ -2,6 +2,7 @@ window.html2canvas = html2canvas;
 
 function PoweredByKaia() {
   const isFireFox = navigator.userAgent.search('Firefox') > -1
+  const isDesktop = document.body.clientWidth > 991
   const cta = document.getElementById("export-partners-cta")
   const targetCanvas = document.querySelector('.partners-export-section')
   const backgroundBlocks = gsap.utils.toArray('.background-export-div')
@@ -42,12 +43,16 @@ function PoweredByKaia() {
       block.style.display = 'none'
     })
 
+    const getScale = () => {
+      if (isFireFox || !isDesktop) return 1;
+      return 3
+    }
 
     try {
       const canvas = await html2canvas(targetCanvas, {
         backgroundColor: 'black',
         useCORS: true,
-        scale: isFireFox ? 1 : 3
+        scale: getScale()
       })
 
       canvas.style.display = 'none'
