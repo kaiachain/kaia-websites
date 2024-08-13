@@ -1,6 +1,7 @@
 window.html2canvas = html2canvas;
 
 function PoweredByKaia() {
+  const isFireFox = navigator.userAgent.search('Firefox') > -1
   const cta = document.getElementById("export-partners-cta")
   const targetCanvas = document.querySelector('.partners-export-section')
   const backgroundBlocks = gsap.utils.toArray('.background-export-div')
@@ -8,7 +9,6 @@ function PoweredByKaia() {
   const listWells = gsap.utils.toArray('.partner-export-well')
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('category')
-
 
   if (category) {
     listWells.map(well => {
@@ -28,7 +28,8 @@ function PoweredByKaia() {
     })
   }
 
-  function onClick() {
+  async function onClick() {
+    cta.onclick = null
     const origPaddingX = targetCanvas.style.paddingRight
     const origPaddingY = targetCanvas.style.paddingTop
     const origDisplay = backgroundBlocks[0].style.display
@@ -41,32 +42,47 @@ function PoweredByKaia() {
       block.style.display = 'none'
     })
 
-    html2canvas(targetCanvas, {
-      backgroundColor: 'black',
-      useCORS: true,
-      scale: 3.5
-    }).then(canvas => {
+
+    try {
+      const canvas = await html2canvas(targetCanvas, {
+        backgroundColor: 'black',
+        useCORS: true,
+        scale: isFireFox ? 1 : 3
+      })
+
       canvas.style.display = 'none'
       canvas.style.padding = '10px'
-      document.body.appendChild(canvas)
-      return canvas
-    }).then(canvas => {
-      const image = canvas.toDataURL('image/bmp')
-      const fileName = `partners-list-${new Date().toJSON()}.bmp`
-      const a = document.createElement('a')
-      a.setAttribute('download', fileName)
-      a.setAttribute('href', image)
-      a.click()
-      canvas.remove()
+      canvas.toBlob((blob) => {
+        const newImg = document.createElement("img");
+        const url = URL.createObjectURL(blob);
 
-      targetCanvas.style.paddingRight = origPaddingX
-      targetCanvas.style.paddingLeft = origPaddingX
-      targetCanvas.style.paddingTop = origPaddingY
-      targetCanvas.style.paddingBottom = origPaddingY
-      backgroundBlocks.map(block => {
-        block.style.display = origDisplay
+        newImg.onload = () => {
+          URL.revokeObjectURL(url);
+        };
+
+        newImg.src = url;
+        const fileName = `partners-list-${new Date().toJSON()}.bmp`
+        const a = document.createElement('a')
+
+        a.setAttribute('download', fileName)
+        a.setAttribute('href', url)
+        a.click()
+        canvas.remove()
+        a.remove()
+
+        targetCanvas.style.paddingRight = origPaddingX
+        targetCanvas.style.paddingLeft = origPaddingX
+        targetCanvas.style.paddingTop = origPaddingY
+        targetCanvas.style.paddingBottom = origPaddingY
+        backgroundBlocks.map(block => {
+          block.style.display = origDisplay
+        })
       })
-    })
+    } catch (err) {
+      console.log(err)
+    }
+
+    cta.onclick = onClick
   }
 
   cta.onclick = onClick
