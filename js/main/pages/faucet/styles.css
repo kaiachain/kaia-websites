@@ -1,0 +1,7 @@
+.w-nav-overlay {
+    top: 115% !important;
+}
+
+.menu-button.w--open {
+    background-color: transparent;
+}
