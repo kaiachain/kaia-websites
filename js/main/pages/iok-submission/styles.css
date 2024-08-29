@@ -1,0 +1,27 @@
+.radio-button-partner .w--redirected-checked {
+    border-color: #144625;
+    background: #144625;
+}
+
+.w-form-formradioinput--inputType-custom {
+    width: 20px;
+    height: 20px;
+}
+
+.w-checkbox-input--inputType-custom.w--redirected-checked {
+    background-color: #144625;
+    border-color: #144625;
+}
+
+.w-checkbox-input--inputType-custom.w--redirected-checked {
+    box-shadow: unset !important;
+}
+
+.bg-not-active:hover {
+    background-color: #144625;
+    border-radius: 360px;
+}
+
+.nice-select {
+    font-family: 'Manrope', sans-serif !important;
+}
