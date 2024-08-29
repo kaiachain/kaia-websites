@@ -177,7 +177,7 @@ const runFaucet = () => {
     });
 };
 
-const closeModal = () => {
+const closeFaucetModal = () => {
   loadState({ popupShow: false, isError: false, title: "", content: "" });
 };
 
@@ -188,10 +188,10 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("kaia_button").addEventListener("click", runFaucet);
   document
     .getElementById("kaia_modal_fail_close")
-    .addEventListener("click", closeModal);
+    .addEventListener("click", closeFaucetModal);
   document
     .getElementById("kaia_modal_success_close")
-    .addEventListener("click", closeModal);
+    .addEventListener("click", closeFaucetModal);
 });
 $(function () {
   $(window).keydown(function (event) {
