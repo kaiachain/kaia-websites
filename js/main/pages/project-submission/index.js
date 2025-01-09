@@ -148,10 +148,7 @@ function validateProjectWebsite() {
 }
 
 function validateProjectTelegramId() {
-  const formControl = document.getElementById('telegram-id')
-  const requireCheck = validateRequiredFieldTextBox('telegram-id', true)
-  if (!requireCheck) return requireCheck
-  return validateValidUrl(formControl)
+  return validateRequiredFieldTextBox('telegram-id')
 }
 
 function validateProjectLogo() {
