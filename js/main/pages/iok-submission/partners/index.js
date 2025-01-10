@@ -48,6 +48,7 @@ function validateValidUrl(formControl) {
     return true;
   }
 
+  errorDiv.querySelector(".url-error").textContent = "Please enter a valid URL.";
   gsap
     .timeline()
     .to(errorDiv, {
@@ -57,6 +58,7 @@ function validateValidUrl(formControl) {
       display: "none",
     });
   $(formControl).addClass("has-error");
+  return false;
 }
 
 function validateCheckbox(id) {
@@ -172,82 +174,6 @@ function validateRequiredRadio(id) {
   return false;
 }
 
-// validate logo
-function validateFileRequired(formControl) {
-  const errorDiv = formControl.querySelector('.error-container')
-  const fileUploadInput = formControl.querySelector('.w-file-upload-input')
-  if (fileUploadInput.files && fileUploadInput.files.length > 0) {
-    gsap.to(errorDiv, {
-      display: 'none'
-    })
-    $(formControl).removeClass('has-error')
-    return true;
-  }
-  gsap.timeline()
-    .to(errorDiv, {
-      display: 'flex'
-    })
-    .to(errorDiv.children[1], {
-      display: 'flex'
-    }, '<')
-    .to(errorDiv.children[0], {
-      display: 'none'
-    }, "<")
-
-  $(formControl).addClass('has-error')
-  return false
-}
-
-async function validateImageDimension(formControl, expectedWidth, expectedHeight) {
-  const _URL = window.URL || window.webkitURL
-  const fileUploadInput = formControl.querySelector('.w-file-upload-input')
-  const errorDiv = formControl.querySelector('.error-container')
-  const [imageDimension, required] = gsap.utils.toArray(errorDiv.children)
-
-  function onError() {
-    gsap.timeline()
-      .to(errorDiv, {
-        display: 'flex'
-      })
-      .to(required, {
-        display: 'none'
-      }, "<")
-      .to(imageDimension, {
-        display: "flex"
-      }, "<")
-    $(formControl).addClass('has-error')
-  }
-
-  const isValid = await (new Promise((resolve) => {
-    const img = new Image();
-    const objectUrl = _URL.createObjectURL(fileUploadInput.files[0])
-    img.onload = function() {
-      resolve((expectedWidth <= this.width) && (expectedHeight <= this.height))
-    }
-    img.src = objectUrl
-  }))
-
-  if (isValid) {
-    gsap.to(errorDiv, {
-      display: 'none'
-    })
-    $(formControl).removeClass('has-error')
-  } else {
-    onError()
-  }
-  return isValid
-}
-
-function validateProjectLogo() {
-  const formControl = document.getElementById('project-logo');
-  if (formControl.style.display === 'none') {
-      return true;
-  }
-  const requireCheck = validateFileRequired(formControl, true)
-  if (!requireCheck) return requireCheck
-  return validateImageDimension(formControl, 1000, 1000)
-}
-
 function validateNameOfOrganization() {
   return validateRequiredFieldTextBox("name-of-organization");
 }
@@ -300,6 +226,17 @@ function validateProjectWebsite() {
   return validateValidUrl(formControl);
 }
 
+function validateWhitepaperDeckUrl1() {
+  const formControl = document.getElementById("whitepaper-deck-url");
+  const input = formControl.querySelector("input");
+  if (!input.value || input.value.length === 0) {
+    const errorDiv = formControl.querySelector(".error-container-2");
+    errorDiv.style.display = "none";
+    return true;
+  }
+  return validateValidUrl(formControl);
+}
+
 function skipCategoryOfTheOrganization() {
   removeNameTagsOfCheckboxes("project-category");
 }
@@ -341,7 +278,6 @@ function attachValidationToPartnerForm() {
   fauxSubmitButton.addEventListener("click", async () => {
     let isValid = 0;
     
-    isValid += await validateProjectLogo() ? 0 : 1;
     isValid += validateNameOfOrganization() ? 0 : 1;
     isValid += validateOrganizationsAddress() ? 0 : 1;
     isValid += validateIaman() ? 0 : 1;
@@ -350,9 +286,10 @@ function attachValidationToPartnerForm() {
     isValid += validateProjectDescription() ? 0 : 1;
     isValid += validateProjectWebsite() ? 0 : 1;
     isValid += validateOrganizationTwitter() ? 0 : 1;
-    // isValid += validateWhitepaper() ? 0 : 1;
     isValid += validateRepresentativeName() ? 0 : 1;
     isValid += validateRepresentativeEmail() ? 0 : 1;
+    isValid += validateBooleanNamePartner() ? 0 : 1;
+    isValid += validateWhitepaperDeckUrl1() ? 0 : 1;
 
     if (isValid > 0) {
       const formItemWithErr = document.querySelector(

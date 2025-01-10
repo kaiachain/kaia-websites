@@ -177,6 +177,7 @@ function validateValidUrl(formControl) {
     return true;
   }
 
+  errorDiv.querySelector(".url-error").textContent = "Please enter a valid URL.";
   gsap
     .timeline()
     .to(errorDiv, {
@@ -186,6 +187,7 @@ function validateValidUrl(formControl) {
       display: "none",
     });
   $(formControl).addClass("has-error");
+  return false;
 }
 
 function validateCheckbox(id) {
@@ -397,6 +399,17 @@ function skipCategoryOfTheDappOrganization() {
   removeNameTagsOfCheckboxes("category-of-the-project-dapp");
 }
 
+function validateWhitepaperDeckUrl() {
+  const formControl = document.getElementById("whitepaper-deck-url-2");
+  const input = formControl.querySelector("input");
+  if (!input.value || input.value.length === 0) {
+    const errorDiv = formControl.querySelector(".error-container-2");
+    errorDiv.style.display = "none";
+    return true;
+  }
+  return validateValidUrl(formControl);
+}
+
 function attachAddButtonListeners() {
   attachAddButtonListener("requests-dapp");
   attachAddButtonListener("tokencontract-dapp");
@@ -432,6 +445,7 @@ function attachValidationToDappForm() {
     isValid += validateProjectAchievements() ? 0 : 1;
     isValid += validateMilestones() ? 0 : 1;
     isValid += validateExclusiveAccess() ? 0 : 1;
+    isValid += validateWhitepaperDeckUrl() ? 0 : 1;
 
     if (isValid > 0) {
       const formItemWithErr = document.querySelector(
