@@ -48,7 +48,7 @@ function validateValidUrl(formControl) {
     return true;
   }
 
-  errorDiv.querySelector(".url-error").textContent =
+  errorDiv.querySelector("p").textContent =
     "Please enter a valid URL.";
   gsap
     .timeline()
@@ -60,6 +60,50 @@ function validateValidUrl(formControl) {
     });
   $(formControl).addClass("has-error");
   return false;
+}
+
+function validateEmail(id) {
+  const formControl = document.getElementById(id);
+  if (!formControl) {
+    console.error(`Element with id ${id} not found.`);
+    return false;
+  }
+
+  const input = formControl.querySelector("input");
+  if (!input) {
+    console.error(`No input found in element with id ${id}.`);
+    return false;
+  }
+
+  const errorDiv = formControl.querySelector(".error-container-2");
+  const email = input.value.trim();
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+  if (email.length === 0) {
+    errorDiv.querySelector("p").textContent =
+      "Representative email is required.";
+    gsap
+      .timeline()
+      .to(errorDiv, { display: "flex" })
+      .to(errorDiv.children, { display: "flex" }, "<");
+    $(formControl).addClass("has-error");
+    return false;
+  }
+
+  if (!email.match(emailPattern)) {
+    errorDiv.querySelector("p").textContent =
+      "Invalid Email Address.";
+    gsap
+      .timeline()
+      .to(errorDiv, { display: "flex" })
+      .to(errorDiv.children, { display: "flex" }, "<");
+    $(formControl).addClass("has-error");
+    return false;
+  }
+
+  gsap.to(errorDiv, { display: "none" });
+  $(formControl).removeClass("has-error");
+  return true;
 }
 
 function validateCheckbox(id) {
@@ -128,6 +172,12 @@ function validateCheckboxes(id, fieldName, maxCheckboxes = 0) {
     formControl.appendChild(hiddenInput);
   } else {
     document.getElementById(checkBoxHiddenId).value = checkBoxLabels;
+  }
+
+  if (checkedCount > maxCheckboxes && maxCheckboxes > 0) {
+    errorDiv.querySelector("p").textContent = `Please select only up to ${maxCheckboxes} types.`;
+  } else {
+    errorDiv.querySelector("p").textContent = `${fieldName} is a required field.`;
   }
 
   if (

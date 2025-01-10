@@ -20,7 +20,7 @@ function validateRepresentativeName() {
 }
 
 function validateRepresentativeEmail() {
-  return validateRequiredFieldTextBox("representative-email");
+  return validateEmail("representative-email");
 }
 
 function validateProjectDescription() {

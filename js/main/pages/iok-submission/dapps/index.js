@@ -175,7 +175,7 @@ function validateDappRepresentativeName() {
 }
 
 function validateDappRepresentativeEmail() {
-  return validateRequiredFieldTextBox("representatives-email-dapp");
+  return validateEmail("representatives-email-dapp");
 }
 
 function validateTokenContracts() {

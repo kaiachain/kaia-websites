@@ -55,7 +55,7 @@ function validateEmail(id) {
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   if (email.length === 0) {
-    errorDiv.querySelector(".paragraph-20").textContent =
+    errorDiv.querySelector("p").textContent =
       "Representative email is required.";
     gsap
       .timeline()
@@ -66,7 +66,7 @@ function validateEmail(id) {
   }
 
   if (!email.match(emailPattern)) {
-    errorDiv.querySelector(".paragraph-20").textContent =
+    errorDiv.querySelector("p").textContent =
       "Invalid Email Address.";
     gsap
       .timeline()
@@ -99,7 +99,7 @@ const validateWalletAddress = (id) => {
   const walletAddressPattern = /^(0x)?[0-9a-fA-F]{40}$/;
 
   if (walletAddress.length === 0) {
-    errorDiv.querySelector(".paragraph-20").textContent =
+    errorDiv.querySelector("p").textContent =
       "Wallet Address is required.";
     gsap
       .timeline()
@@ -110,7 +110,7 @@ const validateWalletAddress = (id) => {
   }
 
   if (!walletAddress.match(walletAddressPattern)) {
-    errorDiv.querySelector(".paragraph-20").textContent =
+    errorDiv.querySelector("p").textContent =
       "Invalid Wallet Address.";
     gsap
       .timeline()
