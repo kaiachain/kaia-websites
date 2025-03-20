@@ -178,6 +178,10 @@ function validateIfPositiveNumber() {
   return validatePositiveNumber("tokens-required");
 }
 
+function validateProjectName() {
+  return validateRequiredFieldTextBox("purpose");
+}
+
 function attachValidationToPartnerForm() {
   const fauxSubmitButton = document.getElementById("faux-submit-button");
   const realSubmitButton = document.getElementById("real-submit-button");
@@ -191,6 +195,7 @@ function attachValidationToPartnerForm() {
     isValid += validateTelegramId() ? 0 : 1;
     isValid += validateWalletsAddress() ? 0 : 1;
     isValid += validateIfPositiveNumber() ? 0 : 1;
+    isValid += validatePurpose() ? 0: 1;
 
     if (isValid > 0) {
       const formItemWithErr = document.querySelector(
