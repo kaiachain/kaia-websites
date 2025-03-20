@@ -178,7 +178,7 @@ function validateIfPositiveNumber() {
   return validatePositiveNumber("tokens-required");
 }
 
-function validateProjectName() {
+function validatePurpose() {
   return validateRequiredFieldTextBox("purpose");
 }
 
