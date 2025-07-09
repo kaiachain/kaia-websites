@@ -235,6 +235,10 @@ function validateDappWhitepaperDeckUrl() {
   return validateValidUrl(formControl);
 }
 
+function validateDappReferredBy() {
+  return validateRequiredFieldTextBox("referred-by-dapp");
+}
+
 function attachAddButtonListeners() {
   attachAddButtonListener("requests-dapp");
   attachAddButtonListener("tokencontract-dapp");
@@ -271,6 +275,7 @@ function attachValidationToDappForm() {
     isValid += validateMilestones() ? 0 : 1;
     isValid += validateExclusiveAccess() ? 0 : 1;
     isValid += validateDappWhitepaperDeckUrl() ? 0 : 1;
+    isValid += validateDappReferredBy() ? 0 : 1;
 
     if (isValid > 0) {
       const formItemWithErr = document.querySelector(

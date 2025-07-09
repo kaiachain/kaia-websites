@@ -62,6 +62,10 @@ function validateWhitepaperDeckUrl() {
   return validateValidUrl(formControl);
 }
 
+function validatePartnerReferredBy() {
+  return validateRequiredFieldTextBox("referred-by-partner");
+}
+
 function skipCategoryOfTheOrganization() {
   removeNameTagsOfCheckboxes("project-category");
 }
@@ -114,6 +118,7 @@ function attachValidationToPartnerForm() {
     isValid += validateRepresentativeEmail() ? 0 : 1;
     isValid += validateBooleanNamePartner() ? 0 : 1;
     isValid += validateWhitepaperDeckUrl() ? 0 : 1;
+    isValid += validatePartnerReferredBy() ? 0 : 1;
 
     if (isValid > 0) {
       const formItemWithErr = document.querySelector(
