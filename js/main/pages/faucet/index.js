@@ -213,6 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const address = document.getElementById("kaia_address").value;
     const tokenTicker = document.getElementById("field").value;
     if (address) updateBalance(tokenTicker);
+    grecaptcha.reset();
   });
 
   document
