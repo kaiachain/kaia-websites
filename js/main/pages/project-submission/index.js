@@ -239,9 +239,10 @@ async function validateImageDimension(
   const isValid = await new Promise((resolve) => {
     const img = new Image();
     const objectUrl = _URL.createObjectURL(fileUploadInput.files[0]);
-    //img.onload = function () {
+    img.onload = function () {
+      resolve(true);
     //  resolve(expectedWidth <= this.width && expectedHeight <= this.height);
-    //};
+    };
     img.src = objectUrl;
   });
 
